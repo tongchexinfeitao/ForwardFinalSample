@@ -82,6 +82,7 @@ public class RegisterAndLoginActivity extends BaseActivity<RegisterAndLoginPrese
                 String encryptPwd = EncryptUtils.encryptMD5ToString(pwd);
                 //因为后台规定了密码长度，所以我们处理一下
                 encryptPwd=encryptPwd.substring(0,6);
+
                 // TODO: 2020/2/13 去登录
                 mPresenter.login(phone, encryptPwd);
                 break;
