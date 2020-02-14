@@ -30,6 +30,7 @@ public class RegisterAndLoginModel implements IRegisterAndLoginContract.IModel {
 
                     @Override
                     public void onNext(RegisterBean registerBean) {
+                        //只有status 是"0000"才是真正的成功
                         if ("0000".equals(registerBean.getStatus())) {
                             iModelCallBack.onRegisterSuccess(registerBean);
                         } else {

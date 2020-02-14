@@ -23,6 +23,7 @@ public class RegisterAndLoginPresenter extends BasePresenter<IRegisterAndLoginCo
         registerAndLoginModel.register(phone, pwd, new IRegisterAndLoginContract.IModel.IModelCallBack() {
             @Override
             public void onRegisterSuccess(RegisterBean registerBean) {
+                //view 是在 BasePresenter中封装好的额
                 view.onRegisterSuccess(registerBean);
             }
 

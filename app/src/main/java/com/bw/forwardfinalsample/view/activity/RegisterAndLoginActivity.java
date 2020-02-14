@@ -1,5 +1,6 @@
 package com.bw.forwardfinalsample.view.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +19,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * 请求 view -> presenter -> model
+ * <p>
+ * 响应 model -> presenter -> view
+ */
 public class RegisterAndLoginActivity extends BaseActivity<RegisterAndLoginPresenter> implements IRegisterAndLoginContract.IView {
 
     @BindView(R.id.edt_phone)
@@ -64,12 +70,14 @@ public class RegisterAndLoginActivity extends BaseActivity<RegisterAndLoginPrese
     @Override
     public void onLoginSuccess(LoginBean loginBean) {
         Toast.makeText(RegisterAndLoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+        // TODO: 2020/2/14 登录成功，进入新的页面
+        startActivity(new Intent(this, OrderformActivity.class));
+        finish();
     }
 
     @Override
     public void onLoginFailure(Throwable throwable) {
         Toast.makeText(RegisterAndLoginActivity.this, "登录失败" + throwable.getMessage(), Toast.LENGTH_SHORT).show();
-
     }
 
     @OnClick({R.id.btn_login, R.id.btn_register})
@@ -81,7 +89,7 @@ public class RegisterAndLoginActivity extends BaseActivity<RegisterAndLoginPrese
                 //密码需要加密
                 String encryptPwd = EncryptUtils.encryptMD5ToString(pwd);
                 //因为后台规定了密码长度，所以我们处理一下
-                encryptPwd=encryptPwd.substring(0,6);
+                encryptPwd = encryptPwd.substring(0, 6);
 
                 // TODO: 2020/2/13 去登录
                 mPresenter.login(phone, encryptPwd);
