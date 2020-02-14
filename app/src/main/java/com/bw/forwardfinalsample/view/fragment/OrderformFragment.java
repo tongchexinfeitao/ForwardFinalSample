@@ -3,6 +3,7 @@ package com.bw.forwardfinalsample.view.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,10 @@ import com.bw.forwardfinalsample.base.BaseFragment;
 import com.bw.forwardfinalsample.contract.IOrderformContract;
 import com.bw.forwardfinalsample.model.bean.OrderformBean;
 import com.bw.forwardfinalsample.presenter.OrderformPresenter;
+import com.bw.forwardfinalsample.view.adapter.OrderformAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,6 +38,9 @@ public class OrderformFragment extends BaseFragment<OrderformPresenter> implemen
     //订单的页数
     private int page = 1;
 
+
+    //所有数据 ，也可以叫 旧数据
+    List<OrderformBean.OrderListBean> list = new ArrayList<>();
 
     @Override
     protected OrderformPresenter providePresenter() {
@@ -76,7 +84,16 @@ public class OrderformFragment extends BaseFragment<OrderformPresenter> implemen
 
     @Override
     public void onOrderformSuccess(OrderformBean orderformBean) {
-            Toast.makeText(getActivity(), "订单请求成功", Toast.LENGTH_SHORT).show();
+        //0、拿到订单集合,将订单集合，添加到旧数据里面
+        list.addAll(orderformBean.getOrderList());
+        //1、设置布局管理器
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mRecyclerOrder.setLayoutManager(linearLayoutManager);
+
+        //2、设置适配器
+        OrderformAdapter orderformAdapter = new OrderformAdapter(list);
+        mRecyclerOrder.setAdapter(orderformAdapter);
     }
 
     @Override
