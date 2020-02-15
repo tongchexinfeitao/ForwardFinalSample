@@ -25,7 +25,7 @@ public interface Api {
     @POST("small/user/v1/login")
     Observable<LoginBean> login(@Field("phone") String phone, @Field("pwd") String pwd);
 
-    //假如订单接口的公共部分和登录注册不一样怎么办
+    //假如订单接口的公共部分和登录注册不一样怎么办？ 订单直接用完成的url
     @GET("http://mobile.bwstudent.com/small/order/verify/v1/findOrderListByStatus")
     Observable<OrderformBean> getOrderformData(@Header("userId") int userId,
                                                @Header("sessionId") String sessionId,
