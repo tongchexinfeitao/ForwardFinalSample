@@ -57,28 +57,30 @@ public class OrderformFragment extends BaseFragment<OrderformPresenter> implemen
 
     @Override
     protected void initView(View inflate) {
-        //设置支持刷新
-        mSmart.setEnableRefresh(true);
+//        //设置支持刷新
+//        mSmart.setEnableRefresh(true);
+//        //设置刷新监听
+//        mSmart.setOnRefreshListener(new OnRefreshListener() {
+//            @Override
+//            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+//                //0、清除旧数据
+//                list.clear();
+//                //1、页数重置为 1
+//                page = 1;
+//                //2、重新请求
+//                mPresenter.getOrderformData(27822,
+//                        "158166496455127822",
+//                        status,
+//                        page,
+//                        5);
+//                //3、隐藏刷新的状态
+//                mSmart.finishRefresh();
+//            }
+//        });
+
+
         //设置支持分页 加载更多
         mSmart.setEnableLoadMore(true);
-        //设置刷新监听
-        mSmart.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                //0、清除旧数据
-                list.clear();
-                //1、页数重置为 1
-                page = 1;
-                //2、重新请求
-                mPresenter.getOrderformData(27822,
-                        "158166496455127822",
-                        status,
-                        page,
-                        5);
-                //3、隐藏刷新的状态
-                mSmart.finishRefresh();
-            }
-        });
         //设置加载更多监听
         mSmart.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
